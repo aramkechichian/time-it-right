@@ -208,3 +208,15 @@ Use it to quickly seed realistic data for:
 - Leaderboard evaluation
 - User analytics endpoints
 - Manual UI testing via Postman or Swagger
+
+🧵 WebSocket Support (Optional Extension)
+A WebSocket endpoint is available at:
+
+bash
+Copy
+Edit
+ws://localhost:8000/ws/leaderboard
+This is a placeholder for future real-time leaderboard updates.
+While it does not currently broadcast messages automatically, the connection is active and ready for extension (e.g., push updates after a game is completed).
+
+This shows the project is built with extensibility and real-time features in mind.

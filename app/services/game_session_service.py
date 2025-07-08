@@ -4,6 +4,7 @@ from app.repositories.game_session_repository import GameSessionRepository
 from app.exceptions.custom_exceptions import GameSessionNotFoundException, NotOwnerException, GenericException
 from app.schemas.game_session import LeaderboardEntry, UserAnalyticsResponse
 from sqlalchemy.engine import Row
+from app.websockets.connection_manager import manager
 
 class GameSessionService:
     def __init__(self, db: AsyncSession):
@@ -19,6 +20,7 @@ class GameSessionService:
         if session.user_id != user_id:
             raise NotOwnerException()
         return session
+    
     
     async def get_leaderboard(self, page: int = 1, limit: int = 10) -> list[LeaderboardEntry]:
         offset = (page - 1) * limit
@@ -41,3 +43,10 @@ class GameSessionService:
         except GenericException as e:
             raise e
         return UserAnalyticsResponse(**data)
+    
+
+
+    async def broadcast_leaderboard_update(self):
+        leaderboard = await self.get_leaderboard(page=1, limit=10)
+        data = [entry.model_dump() for entry in leaderboard]
+        await manager.broadcast({"leaderboard": data})    
