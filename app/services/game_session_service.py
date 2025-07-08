@@ -44,9 +44,3 @@ class GameSessionService:
             raise e
         return UserAnalyticsResponse(**data)
     
-
-
-    async def broadcast_leaderboard_update(self):
-        leaderboard = await self.get_leaderboard(page=1, limit=10)
-        data = [entry.model_dump() for entry in leaderboard]
-        await manager.broadcast({"leaderboard": data})    
