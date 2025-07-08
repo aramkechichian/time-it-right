@@ -187,7 +187,7 @@ The project is deployed on [Render](https://render.com):
 
 ## 📬 Contact
 
-Made with ❤️ by [Aram Kechichian](https://www.linkedin.com/in/aramkechichian/)
+Made with 😄 [Aram Kechichian](https://www.linkedin.com/in/aramkechichian/)
 
 
 ---
