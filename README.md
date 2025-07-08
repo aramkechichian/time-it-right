@@ -209,6 +209,8 @@ Use it to quickly seed realistic data for:
 - User analytics endpoints
 - Manual UI testing via Postman or Swagger
 
+### 🧪 WebSocket Endpoint
+
 🧵 WebSocket Support (Optional Extension)
 A WebSocket endpoint is available at:
 
