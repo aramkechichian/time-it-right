@@ -28,17 +28,14 @@ class GameSessionRepository:
         )
         game_session = query.scalar_one_or_none()
 
-        # Si no existe o ya fue detenida
         if not game_session or game_session.status != "started":
             return None
 
-        # Verificar si la sesión expiró (más de 30 minutos desde que se inició)
         if datetime.utcnow() - game_session.start_time > timedelta(minutes=30):
             game_session.status = "expired"
             await self.session.commit()
             raise SessionExpiredException()
 
-        # Calcular duración y desviación
         game_session.stop_time = datetime.utcnow()
         game_session.duration_ms = (game_session.stop_time - game_session.start_time).total_seconds() * 1000
         game_session.deviation_ms = abs(10000 - game_session.duration_ms)
@@ -79,7 +76,6 @@ class GameSessionRepository:
     
 
     async def get_user_analytics(self, user_id: UUID) -> dict:
-        # 1. Métricas agregadas
         stmt_summary = (
             select(
                 func.count(GameSession.id).label("total_games"),
@@ -93,7 +89,6 @@ class GameSessionRepository:
         result = await self.session.execute(stmt_summary)
         summary = result.one()
 
-        # 2. Lista de sesiones del usuario
         stmt_sessions = (
             select(
                 GameSession.id,

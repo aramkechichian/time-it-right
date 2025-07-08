@@ -7,7 +7,6 @@ from app.routes.game_session_routes import get_current_user
 
 client = TestClient(app)
 
-# 💡 Fixture para inyectar un mock de usuario autenticado
 @pytest.fixture(autouse=True)
 def override_current_user():
     mock_user = AsyncMock()
