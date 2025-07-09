@@ -52,7 +52,7 @@ async def get_user_analytics(
 
 @router.post("/dev/load-test-data")
 async def load_test_data(db: AsyncSession = Depends(get_db)):
-    with open("app/test_data.sql", "r") as f:
+    with open("scripts/test_data.sql", "r") as f:
         raw_sql = f.read()
 
     statements = raw_sql.split(";")
